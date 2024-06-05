@@ -35,7 +35,23 @@ contract NFTTest is Test {
         nft.safeMint{value: MINT_PRICE}(address(0x02), "ipfs://example-uri");
     }
 
-    function testMaxSupplyReached() public {}
+    function testMaxSupplyReached() public {
+        // Mint maximum supply first
+        address[] memory users = new address[](MAX_SUPPLY);
+
+        for (uint256 i = 0; i < MAX_SUPPLY; i++) {
+            users[i] = address(uint160(i + 1));
+            vm.deal(users[i], 1 ether); // Provide each user with sufficient funds
+            vm.prank(users[i]);
+            nft.safeMint{value: MINT_PRICE}(users[i], "ipfs://example-uri");
+        }
+
+        address newUser = address(uint160(MAX_SUPPLY + 1));
+        vm.deal(newUser, 1 ether);
+        vm.prank(newUser);
+        vm.expectRevert(NFT.NFT__MaxSupplyReached.selector);
+        nft.safeMint{value: MINT_PRICE}(newUser, "ipfs://example-uri");
+    }
 
     function testInsufficientEtherSent() public {
         vm.expectRevert(NFT.NFT__InsufficientEtherSent.selector);
