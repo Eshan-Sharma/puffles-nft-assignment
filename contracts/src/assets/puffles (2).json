@@ -1,0 +1,11 @@
+{
+  "name": "puffles (2)",
+  "image": "puffles.png",
+  "description": "Puffles",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}
