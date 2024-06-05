@@ -27,4 +27,18 @@ contract NFTTest is Test {
         assertEq(nft.balanceOf(ALICE), 1);
         assertEq(nft.tokenURI(tokenId), "ipfs://example-uri");
     }
+
+    function testMaxMintPerWalletReached() public {
+        nft.safeMint{value: MINT_PRICE}(address(0x01), "ipfs://example-uri");
+        nft.safeMint{value: MINT_PRICE}(address(0x01), "ipfs://example-uri");
+        vm.expectRevert(NFT.NFT_MaxMintPerWalletReached.selector);
+        nft.safeMint{value: MINT_PRICE}(address(0x02), "ipfs://example-uri");
+    }
+
+    function testMaxSupplyReached() public {}
+
+    function testInsufficientEtherSent() public {
+        vm.expectRevert(NFT.NFT__InsufficientEtherSent.selector);
+        nft.safeMint{value: 0.009 ether}(ALICE, "ipfs://example-uri");
+    }
 }
