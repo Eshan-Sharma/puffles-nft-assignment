@@ -417,8 +417,27 @@ const Mint = () => {
     };
     console.log(data);
     //Mint logic
-    setMinting(false);
-    setMessage("NFT Minted Successfully!"); // Example message
+
+    try {
+      // Request account access if needed
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, abi, signer);
+
+      setMinting(true);
+      const tx = await contract.safeMint(data.toAddress, data.uri, {
+        value: ethers.utils.parseEther("0.01"),
+      });
+      await tx.wait();
+      setMessage("NFT minted successfully!");
+    } catch (error) {
+      console.error(error);
+      setMessage("Minting failed. Please try again.");
+    } finally {
+      setMinting(false);
+    }
   }
 
   return (
