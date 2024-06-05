@@ -3,18 +3,28 @@ pragma solidity ^0.8.13;
 
 import {Test, console} from "forge-std/Test.sol";
 import {NFT} from "../src/NFT.sol";
+import {HelperConfig} from "script/HelperConfig.s.sol";
+import {DeployNFT} from "script/DeployNft.s.sol";
 
 contract NFTTest is Test {
-    NFT nft;
+    NFT public nft;
+    HelperConfig public config;
+    DeployNFT public deployer;
 
     address ALICE = makeAddr("alice");
     address BOB = makeAddr("bob");
+    address USER = makeAddr("user");
+    uint256 public constant STARTING_USER_BALANCE = 1 ether;
     uint256 public constant MAX_SUPPLY = 10;
     uint256 public constant MINT_PRICE = 0.01 ether;
     uint256 public constant MAX_PER_WALLET = 2;
 
     function setUp() public {
-        nft = new NFT(ALICE);
+        deployer = new DeployNFT();
+        (nft, config) = deployer.run();
+        if (block.chainid == 31337) {
+            vm.deal(USER, STARTING_USER_BALANCE);
+        }
     }
 
     function testSafeMintSuccessful() public {
