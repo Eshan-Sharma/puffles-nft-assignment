@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
-const contractAddress = 0x4e0a03b759a92a097e60c6d1bc046ec93ffb53c0;
+const ethers = require("ethers");
+import Web3Modal from "web3modal";
+const contractAddress = "0x4e0a03b759a92a097e60c6d1bc046ec93ffb53c0";
 const abi = [
   {
     inputs: [
@@ -422,7 +424,11 @@ const Mint = () => {
       // Request account access if needed
       await window.ethereum.request({ method: "eth_requestAccounts" });
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const web3Modal = new Web3Modal();
+      console.log(web3Modal);
+      const connection = await web3Modal.connect();
+      console.log(connection);
+      const provider = new ethers.providers.Web3Provider(connection);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contractAddress, abi, signer);
 
