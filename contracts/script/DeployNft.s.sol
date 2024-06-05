@@ -7,7 +7,7 @@ import {NFT} from "src/NFT.sol";
 contract DeployNFT is Script {
     function run() external {
         vm.startBroadcast();
-        NFT myNFT = new NFT();
+        NFT myNFT = new NFT(msg.sender);
         vm.stopBroadcast();
     }
 }
