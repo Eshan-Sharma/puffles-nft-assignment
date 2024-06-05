@@ -1,66 +1,13 @@
-## Foundry
+Contract - https://sepolia.etherscan.io/address/0x4e0a03b759a92a097e60c6d1bc046ec93ffb53c0
+Mint (testing) - https://sepolia.etherscan.io/tx/0x190a2c64e1ba70a57ee674df11464df8272ee194e42422065043f3c8bb7334a2
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+Web3 storage -
 
-Foundry consists of:
+1. https://bafybeier6gxfswwf5uqylmp4prl2mcb2qrkrugnnsyhs2wymihow6q66fm.ipfs.w3s.link (image)
+2. https://bafybeigt5fqngyinpfoi6thcinthycs34aadcroitswvifkeezgpgdsxou.ipfs.w3s.link (metadata)
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+Additionally -
 
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+1. I have used "reverts" instead of "require" to save gas.
+2. I have implemented tests and deploy script. Deploy script has a helper config if network config data changes in the future or additional chains are added. (Future Proofing Contract)
+3.
